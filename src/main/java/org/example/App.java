@@ -1,5 +1,7 @@
 package org.example;
 
+import com.sun.source.tree.ContinueTree;
+
 import java.util.Scanner;
 
 public class App {
@@ -9,7 +11,9 @@ public class App {
         int[] price = new int[24];
         Scanner scanner = new Scanner(System.in);
         TimeIntervals timeIntervals = new TimeIntervals();
-        while (true) {
+        boolean exitProgram = false;
+
+        while (!exitProgram) {
             System.out.print("""
                     Elpriser
                     ========
@@ -18,9 +22,9 @@ public class App {
                     3. Sortera
                     4. Bästa laddningstid(4h)
                     e. Avsluta""");
-            int choice = scanner.nextInt();
+            String choice = scanner.nextLine();
             switch (choice) {
-                case 1:
+                case "1":
                     System.out.print("""
                             Va god och mata in elpriserna under dygnets timmar,
                             priser räknas i hela ören och priset sätts per intervall
@@ -31,7 +35,7 @@ public class App {
                     }
                     break;
 
-                case 2:
+                case "2":
                     System.out.print("\nLägsta pris, högsta pris och medelvärde");
                     int[] results = CheckingTimeMinMax.Check(price);
                     int timeForMin = results[0];
@@ -44,7 +48,7 @@ public class App {
                     System.out.print("\nMedelvärdet är " + (sum / 24));
 
                     break;
-                case 3:
+                case "3":
                     System.out.print("\nSortera ut priset från dyrast till billigast");
                     PriceTime[] sortedPriceTimes = SortPriceTime.sortPriceTime(price, timeIntervals.getTime());
                     for (PriceTime priceTime : sortedPriceTimes) {
@@ -54,16 +58,15 @@ public class App {
                     }
 
                     break;
-                case 4:
+                case "4":
                     System.out.print("\nYou selected Option 4");
                     // Add code for Option 4 here
                     break;
-                case 'e', 'E':
-                    System.out.print("\nAvsluta");
-                    System.exit(0);
-                    //default:
-                    //System.out.println("");
+                case "e", "E":
+                    exitProgram = true;
+                    break;
             }
         }
+        scanner.close();
     }
 }
