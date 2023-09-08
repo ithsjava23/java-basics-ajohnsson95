@@ -1,7 +1,7 @@
 package org.example;
 
 public class SortPriceTime {
-    public static PriceTime[] SortPriceTime(int[] price, String[] times) {
+    public static PriceTime[] sortPriceTime(int[] price, String[] times) {
         PriceTime[] priceTimes = new PriceTime[24];
 
 

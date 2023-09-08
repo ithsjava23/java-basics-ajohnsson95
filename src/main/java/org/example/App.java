@@ -46,7 +46,7 @@ public class App {
                     break;
                 case 3:
                     System.out.print("\nSortera ut priset från dyrast till billigast");
-                    PriceTime[] sortedPriceTimes = SortPriceTime.SortPriceTime(price, timeIntervals.getTime());
+                    PriceTime[] sortedPriceTimes = SortPriceTime.sortPriceTime(price, timeIntervals.getTime());
                     for (PriceTime priceTime : sortedPriceTimes) {
                         String sortedTime = priceTime.getTime();
                         int sortedPrice = priceTime.getPrice();

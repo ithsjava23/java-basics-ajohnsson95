@@ -19,7 +19,6 @@ public class CheckingTimeMinMax{
             sum += price[i];
 
         }
-        int[] results = new int[]{timeForMin, timeForMax, sum};
-        return results;
+        return new int[]{timeForMin, timeForMax, sum};
     }
 }
