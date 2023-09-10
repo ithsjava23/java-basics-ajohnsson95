@@ -1,4 +1,5 @@
 package org.example;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class App {
@@ -8,31 +9,23 @@ public class App {
         int[] price = new int[24];
         Scanner scanner = new Scanner(System.in);
         TimeIntervals timeIntervals = new TimeIntervals();
-        boolean exitProgram;
-        exitProgram = true;
-        do {
-            System.out.print("""
-                    Elpriser
-                    ========
-                    1. Inmatning
-                    2. Min, Max och medel
-                    3. Sortera
-                    4. Bästa laddningstid(4h)
-                    e. Avsluta""");
-            String choice = scanner.nextLine().toLowerCase();
-            // Add code for Option 4 here
+
+        while (true) {
+            printMenu.menu();
+            char choice = scanner.next().toLowerCase().charAt(0);
+
             switch (choice) {
-                case "1":
+                case '1':
                     System.out.print("""
                             Va god och mata in elpriserna under dygnets timmar,
                             priser räknas i hela ören och priset sätts per intervall
                             mellan två hela timmar börjar 00-01""");
                     for (int i = 0; i < 24; i++) {
-                        System.out.print("\nTimintervall " + timeIntervals.getTime()[i]);
+                        System.out.print("\nTimintervall " + timeIntervals.getTime()[i]+ "\n");
                         price[i] = scanner.nextInt();
                     }
                     break;
-                case "2":
+                case '2':
                     System.out.print("\nLägsta pris, högsta pris och medelvärde");
                     int[] results = CheckingTimeMinMax.Check(price);
                     int timeForMin = results[0];
@@ -44,7 +37,7 @@ public class App {
                     System.out.print("\nHögsta pris är " + highestPrice + " ören mellan " + timeIntervals.getTime()[timeForMax]);
                     System.out.print("\nMedelvärdet är " + (sum / 24));
                     break;
-                case "3":
+                case '3':
                     System.out.print("\nSortera ut priset från dyrast till billigast");
                     PriceTime[] sortedPriceTimes = SortPriceTime.sortPriceTime(price, timeIntervals.getTime());
                     for (PriceTime priceTime : sortedPriceTimes) {
@@ -53,15 +46,31 @@ public class App {
                         System.out.print("\nmellan " + sortedTime + " " + sortedPrice + " öre");
                     }
                     break;
-                case "4":
-                    System.out.print("\nYou selected Option 4");
+                case '4':
+
+                    int cheapestSum = Integer.MAX_VALUE;
+                    int bestStartHour = -1;
+
+                    for (int i = 0; i <= price.length - 4; i++) {
+                        int result = price[i] + price[i + 1] + price[i + 2] + price[i + 3];
+                        if (result < cheapestSum) {
+                            cheapestSum = result;
+                            bestStartHour = i;
+                        }
+                    }
+
+                    double avgPrice = (double) cheapestSum / 4;
+                    System.out.println("Bästa laddningstid (4h) börjar kl " + bestStartHour + ":00");
+                    System.out.printf("Medelpris under dessa 4 timmar: %.2f öre%n", avgPrice);
                     break;
-                case "e":
-                    exitProgram = false;
+                case 'e':
+                    System.out.println("Programmet avslutas.");
+                    System.exit(0);
+                default:
+                    System.out.println("Ogiltigt val. Försök igen.");
                     break;
 
             }
-        } while (exitProgram);
-            scanner.close();
+        }
     }
 }
