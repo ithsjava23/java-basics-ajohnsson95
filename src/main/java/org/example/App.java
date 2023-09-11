@@ -1,4 +1,5 @@
 package org.example;
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class App {
@@ -14,6 +15,7 @@ public class App {
             char choice = scanner.next().toLowerCase().charAt(0);
 
             switch (choice) {
+
                 case '1':
                     System.out.print("""
                             Va god och mata in elpriserna under dygnets timmar,
@@ -29,12 +31,14 @@ public class App {
                     int[] results = CheckingTimeMinMax.Check(price);
                     int timeForMin = results[0];
                     int timeForMax = results[1];
-                    int sum = results[2];
+                    float sum = results[2];
                     int lowestPrice = price[timeForMin];
                     int highestPrice = price[timeForMax];
                     System.out.print("\nLägsta pris är " + lowestPrice + " ören mellan " + timeIntervals.getTime()[timeForMin]);
                     System.out.print("\nHögsta pris är " + highestPrice + " ören mellan " + timeIntervals.getTime()[timeForMax]);
-                    System.out.print("\nMedelvärdet är " + (sum / 24));
+                    DecimalFormat decimalFormat = new DecimalFormat("#.##");
+                    String averagePrice = decimalFormat.format(sum / 24);
+                    System.out.print("\nMedelvärdet är " + averagePrice + "ören");
                     break;
                 case '3':
                     System.out.print("\nSortera ut priset från dyrast till billigast");
@@ -58,9 +62,10 @@ public class App {
                         }
                     }
 
+                    String formattedBestStartHour = String.format("%02d:00", bestStartHour);
                     double avgPrice = (double) cheapestSum / 4;
-                    System.out.print("\nBästa laddningstid (4h) börjar kl " + bestStartHour + ":00");
-                    System.out.printf("Medelpris under dessa 4 timmar: %.2f öre%n", avgPrice);
+                    System.out.print("\nBästa laddningstid (4h) börjar kl " + formattedBestStartHour + "\n");
+                    System.out.printf(" Medelpris under dessa 4 timmar: %.2f öre%n", avgPrice);
                     break;
                 case 'e':
                     System.out.print("\nProgrammet avslutas.");
