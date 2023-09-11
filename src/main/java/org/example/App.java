@@ -46,7 +46,7 @@ public class App {
                     for (PriceTime priceTime : sortedPriceTimes) {
                         String sortedTime = priceTime.getTime();
                         int sortedPrice = priceTime.getPrice();
-                        System.out.print("\nmellan " + sortedTime + " " + sortedPrice + " öre");
+                        System.out.print("\n" + sortedTime + " " + sortedPrice + " öre");
                     }
                     break;
                 case '4':
