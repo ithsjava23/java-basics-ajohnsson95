@@ -1,5 +1,4 @@
 package org.example;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class App {
@@ -60,14 +59,14 @@ public class App {
                     }
 
                     double avgPrice = (double) cheapestSum / 4;
-                    System.out.println("Bästa laddningstid (4h) börjar kl " + bestStartHour + ":00");
+                    System.out.print("\nBästa laddningstid (4h) börjar kl " + bestStartHour + ":00");
                     System.out.printf("Medelpris under dessa 4 timmar: %.2f öre%n", avgPrice);
                     break;
                 case 'e':
-                    System.out.println("Programmet avslutas.");
+                    System.out.print("\nProgrammet avslutas.");
                     System.exit(0);
                 default:
-                    System.out.println("Ogiltigt val. Försök igen.");
+                    System.out.print("\nOgiltigt val. Försök igen.");
                     break;
 
             }
