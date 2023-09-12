@@ -6,7 +6,7 @@ public class App {
 
 
     public static void main(String[] args) {
-        System.out.println("Hello There!");
+        System.out.print("Hello There!");
         int[] price = new int[24];
         Scanner scanner = new Scanner(System.in);
         TimeIntervals timeIntervals = new TimeIntervals();
@@ -21,7 +21,7 @@ public class App {
                         try {
                             price[i] = Integer.parseInt(scanner.nextLine());
                         } catch (NumberFormatException e) {
-                            System.out.println("Fel Input, va god skriv in ett heltal");
+                            System.out.print("Fel Input, va god skriv in ett heltal");
                         }
                     }
                 }
