@@ -12,11 +12,11 @@ public class App {
 
         while (true) {
             printMenu.menu();
-            char choice = scanner.next().toLowerCase().charAt(0);
+            String choice = scanner.nextLine().toLowerCase();
 
             switch (choice) {
 
-                case '1':
+                case "1":
                     System.out.print("""
                             Va god och mata in elpriserna under dygnets timmar,
                             priser räknas i hela ören och priset sätts per intervall
@@ -26,7 +26,7 @@ public class App {
                         price[i] = scanner.nextInt();
                     }
                     break;
-                case '2':
+                case "2":
                     System.out.print("\nLägsta pris, högsta pris och medelvärde");
                     int[] results = CheckingTimeMinMax.Check(price);
                     int timeForMin = results[0];
@@ -40,7 +40,7 @@ public class App {
                     String averagePrice = decimalFormat.format(sum / 24);
                     System.out.print("\nMedelvärdet är " + averagePrice + "ören");
                     break;
-                case '3':
+                case "3":
                     System.out.print("\nSortera ut priset från dyrast till billigast");
                     PriceTime[] sortedPriceTimes = SortPriceTime.sortPriceTime(price, timeIntervals.getTime());
                     for (PriceTime priceTime : sortedPriceTimes) {
@@ -49,7 +49,7 @@ public class App {
                         System.out.print("\n" + sortedTime + " " + sortedPrice + " öre");
                     }
                     break;
-                case '4':
+                case "4":
 
                     int cheapestSum = Integer.MAX_VALUE;
                     int bestStartHour = -1;
@@ -67,7 +67,7 @@ public class App {
                     System.out.print("\nBästa laddningstid (4h) börjar kl " + formattedBestStartHour + "\n");
                     System.out.printf(" Medelpris under dessa 4 timmar: %.2f öre%n", avgPrice);
                     break;
-                case 'e':
+                case "e":
                     System.out.print("\nProgrammet avslutas.");
                     System.exit(0);
                 default:
