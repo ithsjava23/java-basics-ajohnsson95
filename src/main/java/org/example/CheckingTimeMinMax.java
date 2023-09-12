@@ -7,7 +7,7 @@ public class CheckingTimeMinMax{
         int timeForMin = 0;
         int timeForMax = 0;
         int sum = 0;
-        for (int i = 0; i < 24; i++) {
+        for (int i = 0; i < price.length; i++) {
             if (price[i] < min) {
                 min = price[i];
                 timeForMin = i;

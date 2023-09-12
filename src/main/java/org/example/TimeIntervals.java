@@ -1,7 +1,7 @@
 package org.example;
 
 public class TimeIntervals {
-    String[] time = new String[24];
+    String[] time = new String[25];
 
     public TimeIntervals() {
         for (int i = 0; i < time.length; i++) {

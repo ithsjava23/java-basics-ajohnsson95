@@ -9,56 +9,50 @@ public class App {
         int[] price = new int[24];
         Scanner scanner = new Scanner(System.in);
         TimeIntervals timeIntervals = new TimeIntervals();
-
-        while (true) {
+        boolean shouldExit = false;
+        while (!shouldExit) {
             printMenu.menu();
             var choice = scanner.nextLine().toLowerCase();
 
             switch (choice) {
-
-                case "1":
-                    System.out.print("""
-                            Va god och mata in elpriserna under dygnets timmar,
-                            priser räknas i hela ören och priset sätts per intervall
-                            mellan två hela timmar börjar 00-01""");
-                    for (int i = 0; i < 24; i++) {
-                        System.out.print("\nTimintervall " + timeIntervals.getTime()[i]+ "\n");
+                case "1" -> {
+                    for (int i = 0; i < price.length; i++) {
                         try {
                             price[i] = Integer.parseInt(scanner.nextLine());
                         } catch (NumberFormatException e) {
                             System.out.println("Fel Input, va god skriv in ett heltal");
-                            // You can add error handling or re-prompt the user for input here
                         }
                     }
-                    break;
-                case "2":
-                    System.out.print("\nLägsta pris, högsta pris och medelvärde");
+                }
+                case "2" -> {
                     int[] results = CheckingTimeMinMax.Check(price);
                     int timeForMin = results[0];
                     int timeForMax = results[1];
                     float sum = results[2];
                     int lowestPrice = price[timeForMin];
                     int highestPrice = price[timeForMax];
-                    System.out.print("\nLägsta pris är " + lowestPrice + " ören mellan " + timeIntervals.getTime()[timeForMin]);
-                    System.out.print("\nHögsta pris är " + highestPrice + " ören mellan " + timeIntervals.getTime()[timeForMax]);
+                    System.out.print("\nLägsta pris: " + timeIntervals.getTime()[timeForMin] + ", " + lowestPrice + " öre/kWh");
+                    System.out.print("\nHögsta pris: " + timeIntervals.getTime()[timeForMax] + ", " + highestPrice + " öre/kWh");
                     DecimalFormat decimalFormat = new DecimalFormat("#.##");
-                    String averagePrice = decimalFormat.format(sum / 24);
-                    System.out.print("\nMedelvärdet är " + averagePrice + "ören");
-                    break;
-                case "3":
-                    System.out.print("\nSortera ut priset från dyrast till billigast");
+                    String averagePrice;
+                    if (sum == 0) {
+                        averagePrice = "0,00";
+                    } else {
+                        averagePrice = decimalFormat.format(sum / 24);
+                    }
+                    System.out.print("\nMedelpris: " + averagePrice + " öre/kWh");
+                }
+                case "3" -> {
                     PriceTime[] sortedPriceTimes = SortPriceTime.sortPriceTime(price, timeIntervals.getTime());
                     for (PriceTime priceTime : sortedPriceTimes) {
                         String sortedTime = priceTime.getTime();
                         int sortedPrice = priceTime.getPrice();
                         System.out.print("\n" + sortedTime + " " + sortedPrice + " öre");
                     }
-                    break;
-                case "4":
-
+                }
+                case "4" -> {
                     int cheapestSum = Integer.MAX_VALUE;
                     int bestStartHour = -1;
-
                     for (int i = 0; i <= price.length - 4; i++) {
                         int result = price[i] + price[i + 1] + price[i + 2] + price[i + 3];
                         if (result < cheapestSum) {
@@ -66,20 +60,18 @@ public class App {
                             bestStartHour = i;
                         }
                     }
-
-                    String formattedBestStartHour = String.format("%02d:00", bestStartHour);
+                    String formattedBestStartHour = String.format("%02d", bestStartHour);
                     double avgPrice = (double) cheapestSum / 4;
-                    System.out.print("\nBästa laddningstid (4h) börjar kl " + formattedBestStartHour + "\n");
-                    System.out.printf(" Medelpris under dessa 4 timmar: %.2f öre%n", avgPrice);
-                    break;
-                case "e":
-                    System.out.print("\nProgrammet avslutas.");
-                    System.exit(0);
-                default:
-                    System.out.print("\nOgiltigt val. Försök igen.");
-                    break;
-
+                    DecimalFormat decimalFormat1 = new DecimalFormat("#,#0.0");
+                    String formattedAvgPrice = decimalFormat1.format(avgPrice);
+                    System.out.print("Påbörja laddning klockan " + formattedBestStartHour + "\n");
+                    System.out.print("Medelpris 4h: " + formattedAvgPrice + " öre/kWh");
+                }
+                case "e" -> shouldExit = true;
+                default -> System.out.print("\nOgiltigt val. Försök igen.");
             }
         }
+
     }
+
 }
