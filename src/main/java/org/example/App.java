@@ -12,7 +12,7 @@ public class App {
 
         while (true) {
             printMenu.menu();
-            String choice = scanner.nextLine().toLowerCase();
+            var choice = scanner.nextLine().toLowerCase();
 
             switch (choice) {
 
@@ -23,7 +23,12 @@ public class App {
                             mellan två hela timmar börjar 00-01""");
                     for (int i = 0; i < 24; i++) {
                         System.out.print("\nTimintervall " + timeIntervals.getTime()[i]+ "\n");
-                        price[i] = scanner.nextInt();
+                        try {
+                            price[i] = Integer.parseInt(scanner.nextLine());
+                        } catch (NumberFormatException e) {
+                            System.out.println("Fel Input, va god skriv in ett heltal");
+                            // You can add error handling or re-prompt the user for input here
+                        }
                     }
                     break;
                 case "2":
