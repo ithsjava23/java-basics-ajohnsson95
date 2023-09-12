@@ -6,6 +6,7 @@ public class App {
 
 
     public static void main(String[] args) {
+        System.out.println("Hello There!");
         int[] price = new int[24];
         Scanner scanner = new Scanner(System.in);
         TimeIntervals timeIntervals = new TimeIntervals();
