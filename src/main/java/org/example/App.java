@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public class App {
 
-
     public static void main(String[] args) {
         System.out.print("Hello There!");
         int[] price = new int[24];
