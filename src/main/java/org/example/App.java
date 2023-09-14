@@ -1,11 +1,12 @@
 package org.example;
 import java.text.DecimalFormat;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class App {
 
     public static void main(String[] args) {
-        System.out.print("Hello There!");
+        Locale.setDefault(Locale.forLanguageTag("sv-SE"));
         int[] price = new int[24];
         Scanner scanner = new Scanner(System.in);
         TimeIntervals timeIntervals = new TimeIntervals();
